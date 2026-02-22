@@ -1,0 +1,47 @@
+/*  Global Styles  */
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f6f9;
+}
+
+/*  Card Styling  */
+
+.card {
+    border-radius: 12px;
+    border: none;
+}
+
+.card-header {
+    border-radius: 12px 12px 0 0 !important;
+}
+
+/*  Custom Theme  */
+
+.custom-header {
+    background-color: #1e293b; 
+    color: white;
+}
+
+.custom-btn {
+    background-color: #2563eb; /* modern blue */
+    color: white;
+    border: none;
+}
+
+.custom-btn:hover {
+    background-color: #1d4ed8;
+    color: white;
+}
+
+/*  Buttons  */
+
+.btn {
+    border-radius: 8px;
+}
+
+/* Table  */
+
+.table {
+    margin-bottom: 0;
+}
