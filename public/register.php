@@ -39,12 +39,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 ":password" => $hashedPassword
             ]);
 
-            // ✅ Fetch newly created user
+            //  Fetch newly created user
             $getUser = $pdo->prepare("SELECT id, name, email FROM users WHERE email = :email");
             $getUser->execute([":email" => $email]);
             $user = $getUser->fetch(PDO::FETCH_ASSOC);
 
-            // ✅ Auto login
+            //  Auto login
             $_SESSION["user_id"] = $user["id"];
             $_SESSION["user_name"] = $user["name"];
             $_SESSION["user_email"] = $user["email"];
