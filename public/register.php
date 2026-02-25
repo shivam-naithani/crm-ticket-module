@@ -12,16 +12,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (empty($name) || empty($email) || empty($password)) {
         $error = "All fields are required.";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    } 
+    elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = "Invalid email format.";
-    } else {
+    } 
+    else {
 
         $checkStmt = $pdo->prepare("SELECT id FROM users WHERE email = :email");
         $checkStmt->execute([":email" => $email]);
 
         if ($checkStmt->fetch()) {
             $error = "Email already registered.";
-        } else {
+        } 
+        else {
 
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
@@ -36,7 +39,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 ":password" => $hashedPassword
             ]);
 
-            header("Location: login.php");
+            // ✅ Fetch newly created user
+            $getUser = $pdo->prepare("SELECT id, name, email FROM users WHERE email = :email");
+            $getUser->execute([":email" => $email]);
+            $user = $getUser->fetch(PDO::FETCH_ASSOC);
+
+            // ✅ Auto login
+            $_SESSION["user_id"] = $user["id"];
+            $_SESSION["user_name"] = $user["name"];
+            $_SESSION["user_email"] = $user["email"];
+
+            header("Location: dashboard.php");
             exit;
         }
     }
